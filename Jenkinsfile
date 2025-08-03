@@ -6,8 +6,8 @@ pipeline {
         AZURE_CLIENT_SECRET = credentials('azure-client-secret') // Jenkins credential ID for password
         AZURE_TENANT_ID = credentials('azure-tenant-id')         // Jenkins credential ID for tenant
         AZURE_SUBSCRIPTION_ID = '90d79b4f-a51d-4368-98ed-d9fbeb430024'
-        RESOURCE_GROUP = 'myResourceGroup'                   // Replace with your Azure resource group
-        FUNCTION_APP_NAME = 'dhyeyfunction8965482'               // Replace with your function app name
+        RESOURCE_GROUP = 'your-resource-group'                   // Replace with your actual resource group
+        FUNCTION_APP_NAME = 'dhyeyfunction8965482'               // Your Azure Function App name
     }
 
     stages {
@@ -33,7 +33,9 @@ pipeline {
                     az account set --subscription %AZURE_SUBSCRIPTION_ID%
                 """
                 echo 'Deploying Azure Function...'
-                bat "func azure functionapp publish %FUNCTION_APP_NAME% --force"
+                bat """
+                    func azure functionapp publish %FUNCTION_APP_NAME% --force --javascript
+                """
             }
         }
     }
